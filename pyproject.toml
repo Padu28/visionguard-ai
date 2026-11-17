@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "visionguard-ai"
+version = "1.0.0"
+description = "Robust manufacturing defect detection with visual explainability and robustness evaluation."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Padmashree Shah" }]
+keywords = ["computer-vision", "defect-detection", "robustness", "explainability", "manufacturing"]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "scipy>=1.11",
+  "scikit-learn>=1.6",
+  "joblib>=1.3",
+  "pyyaml>=6.0",
+  "matplotlib>=3.8",
+  "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn[standard]>=0.29", "pydantic>=2.6", "python-multipart>=0.0.9"]
+dashboard = ["streamlit>=1.46", "plotly>=5.20"]
+cnn = ["torch>=2.2", "torchvision>=0.17"]
+dev = ["pytest>=8.0", "pytest-cov>=5.0", "httpx>=0.27", "ruff>=0.4", "mypy>=1.9"]
+
+[project.scripts]
+visionguard = "visionguard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B008", "B905"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true

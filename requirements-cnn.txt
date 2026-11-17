@@ -1,0 +1,4 @@
+# Optional: CNN transfer learning (ResNet18 / SmallCNN) and Grad-CAM
+-r requirements.txt
+torch>=2.2
+torchvision>=0.17

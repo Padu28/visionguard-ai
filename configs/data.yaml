@@ -1,0 +1,24 @@
+# ---------------------------------------------------------------
+# VisionGuard AI — data configuration
+# ---------------------------------------------------------------
+# Task (scope decision): IMAGE CLASSIFICATION — normal vs. four defect categories.
+# Default source is a synthetic steel-surface dataset (NEU-style) generated with
+# pixel masks so explanations can be checked against true defect regions.
+source: synthetic          # synthetic | folder  (folder: data/raw/<class>/*.png, e.g. NEU-DET / MVTec AD)
+raw_dir: data/raw
+processed_dir: data/processed/images
+
+synthetic:
+  image_size: 96
+  n_instances: 300           # steel sheets; each yields several crops (split is BY INSTANCE)
+  crops_per_instance: 5
+  seed: 42
+  class_mix:                 # defects are rarer than normal surfaces
+    normal: 0.50
+    scratch: 0.15
+    inclusion: 0.15
+    crack: 0.10
+    patch: 0.10
+
+classes: [normal, scratch, inclusion, crack, patch]
+split: {train: 0.6, validation: 0.2, test: 0.2}

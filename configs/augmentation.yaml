@@ -1,0 +1,28 @@
+# ---------------------------------------------------------------
+# VisionGuard AI — augmentation & robustness configuration
+# ---------------------------------------------------------------
+# Training augmentations preserve defect meaning (no colour inversion, no
+# warps that could create or erase a defect).
+train:
+  hflip: 0.5
+  vflip: 0.5
+  rot90: true
+  brightness: 0.10      # ± fraction
+  contrast: 0.10
+  gaussian_noise_std: 0.01
+
+# Robustness-aware training (used by the "robust" model only). Ranges are kept
+# MILDER than the strongest test corruptions so the study still measures extrapolation.
+corruption_training:
+  copies: 2
+  max_blur_sigma: 1.5
+  max_noise_std: 0.06
+  min_resolution_scale: 0.4
+  max_brightness: 0.3
+
+# Controlled corruptions for the robustness study (applied to the TEST set only).
+robustness:
+  brightness: [-0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3]
+  blur_sigma: [0.0, 0.5, 1.0, 1.5, 2.0, 3.0]
+  noise_std: [0.0, 0.02, 0.04, 0.06, 0.08, 0.12]
+  resolution_scale: [1.0, 0.75, 0.5, 0.375, 0.25]
